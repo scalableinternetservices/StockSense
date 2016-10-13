@@ -3,7 +3,7 @@ An web application to anaylize the possible factors that might affect to stock f
 Pulling data from open data relevant to all the stocks and produce dashboard representing those data. Users can add stocks to their watch list, vote on the factors that 
 they consider as a factor causing stock price changes. 
 Team Members: 
-Chris Zhu(christopherzhu00)  ![alt tag]("12493422_10201360612773775_5554003852055472876_o.jpg")
-Lily Liao(lilyliao) ![alt tag]("profile.jpg")
-Liwei Tseng(tsengliwei) ![alt tag]("10898334_786917514712097_1603581060132271176_n.jpg")
-Nikhil Gupta(Nikhil2324) ![alt tag]("14124493_10208955851626207_9212788288871405577_o.jpg")
+Chris Zhu(christopherzhu00)  ![alt tag](https://cloud.githubusercontent.com/assets/7180359/19370477/e3a32984-9160-11e6-8e45-0f846dee7ac5.jpg)
+Lily Liao(lilyliao) ![alt tag](https://cloud.githubusercontent.com/assets/7180359/19370479/e3a66d10-9160-11e6-90f2-2f28bb2e0eda.jpg)
+Liwei Tseng(tsengliwei) ![alt tag](https://cloud.githubusercontent.com/assets/7180359/19370475/e39d9c6c-9160-11e6-8e26-5d58cdb333f3.jpg)
+Nikhil Gupta(Nikhil2324) ![alt tag](https://cloud.githubusercontent.com/assets/7180359/19370476/e39dfa7c-9160-11e6-9372-2dff3f62d776.jpg)
