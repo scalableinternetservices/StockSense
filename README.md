@@ -7,3 +7,11 @@ Chris Zhu(christopherzhu00)<br>  <img src="https://cloud.githubusercontent.com/a
 Lily Liao(lilyliao)<br> <img src="https://cloud.githubusercontent.com/assets/7180359/19370479/e3a66d10-9160-11e6-90f2-2f28bb2e0eda.jpg" width="100"><br>
 Liwei Tseng(tsengliwei)<br> <img src="https://cloud.githubusercontent.com/assets/7180359/19370475/e39d9c6c-9160-11e6-8e26-5d58cdb333f3.jpg" width="100"><br>
 Nikhil Gupta(Nikhil2324)<br> <img src="https://cloud.githubusercontent.com/assets/7180359/19370476/e39dfa7c-9160-11e6-9372-2dff3f62d776.jpg" width="100"><br>
+
+# Setup
+```
+bundle install
+rake db:migrate
+rake db:seed
+rails s
+```

@@ -1,6 +1,7 @@
 class StocksController < ApplicationController
 	before_action :find_stock, only: [:show, :edit, :update, :destroy]
 	before_action :authenticate_user!, only: [:new, :edit]
+	# before_action :retrieve_stockTwists_comments, only: [:show]
 
 	def index
 		if params[:industry].blank?
@@ -62,4 +63,18 @@ class StocksController < ApplicationController
 		def find_stock
 			@stock = Stock.find(params[:id])
 		end
+
+		# def retrieve_stockTwists_comments
+		# 	require 'cgi'
+		# 	require 'net/http'
+		# 	require 'json'
+		# 	require 'uri'
+		# 	url = request.original_url
+		# 	params = URI.parse(url)
+		# 	url = 'https://api.stocktwits.com/api/2/streams/symbol/fb.json'
+		# 	uri = URI(url)
+		# 	response = Net::HTTP.get(uri)
+		# 	@jsonInfo = JSON.parse(response)
+		# 	tweets = @jsonInfo["messages"]
+		# end
 end
