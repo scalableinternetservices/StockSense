@@ -1,0 +1,65 @@
+<div class="row">
+	<div class="col-md-4">
+		<%= image_tag @stock.stock_img.url(:stock_show), class: "stock-show" %>	
+	</div>
+
+	<div class="col-md-8">
+	<div class="stock-info">
+		<h2 class="stock-title"><%= @stock.name %></h2>
+		<h3 class="stock-author"><span>Symbol: </span><%= @stock.symbol %></h2>
+		<h2 class="avg-rating">Average Rating</h2>
+		<div class="average-review-rating" data-score=<%= @average_review %>></div>
+		<span class="number-of-reviews">Based on <%= @stock.reviews.count %> reviews</span>
+		<h4 class="stock-description"><%= @stock.description %></h2>
+	</div>
+		
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-4">
+		<!-- reviews/ratings -->
+		<div class="reviews">
+			<h1>Reviews</h1>
+			<%= render @stock.reviews %>
+			<div>
+				<%= link_to "Add Review", new_stock_review_path(@stock), class: "btn btn-custom" %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="links btn-group">
+	<%= link_to "Back", root_path, class: "btn btn-custom" %>
+
+	<% if user_signed_in? %>
+		<% if @stock.user_id == current_user.id %>
+			<%= link_to "Edit", edit_stock_path(@stock), class: "btn btn-custom" %>
+			<%= link_to "Delete", stock_path(@stock), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-custom" %>
+		<% end %>
+	<% end %>
+</div>
+
+
+
+
+<script>
+	$('.review-rating').raty({
+		readOnly: true,
+		score: function() {
+			return $(this).attr('data-score');
+		},
+		path: '/assets/'
+	});
+</script>
+
+<script>
+	$('.average-review-rating').raty({
+		readOnly: true,
+		path: '/assets/',
+		score: function() {
+			return $(this).attr('data-score')
+		}
+	});
+</script>

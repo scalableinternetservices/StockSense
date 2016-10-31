@@ -1,0 +1,20 @@
+<h1 class="current-industry"><%= params[:industry] %></h1>
+
+<% if @stocks.count == 0 %>
+
+	<h1>There are no stocks currently in this sector</h1>
+
+<% else %>
+	
+	<div class="row">
+		
+		<% @stocks.each do |stock| %>
+			<div class="col-md-3">
+				<a href="/stocks/<%= stock.id %>">
+					<%= image_tag stock.stock_img.url(:stock_index), class: "stock" %>
+				</a>
+			</div>
+		<% end %>		
+	</div>
+
+<% end %>
