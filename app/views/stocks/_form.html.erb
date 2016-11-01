@@ -3,6 +3,6 @@
   <%= f.file_field :stock_img %>
   <%= f.input :name, label: "Company Name" %>
   <%= f.input :symbol, label: "Stock Symbol" %>
-  <%= f.input :description %>
+  <%= f.input :description, required: true %>
   <%= f.button :submit, class: "btn-custom2" %>
 <% end %>
