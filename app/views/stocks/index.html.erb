@@ -10,9 +10,9 @@
 		
 		<% @stocks.each do |stock| %>
 			<div class="col-md-3">
-				<a href="/stocks/<%= stock.id %>">
-					<%= image_tag stock.stock_img.url(:stock_index), class: "stock" %>
-				</a>
+					<a href="/stocks/<%= stock.id %>">
+						<%= image_tag stock.stock_img.url(:stock_index), class: "stock" %>
+					</a>
 			</div>
 		<% end %>		
 	</div>
