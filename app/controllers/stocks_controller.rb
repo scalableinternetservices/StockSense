@@ -19,6 +19,18 @@ class StocksController < ApplicationController
 		else
 			@average_review = @stock.reviews.average(:rating).round(2)
 		end
+		require 'cgi'
+		require 'net/http'
+		require 'json'
+		url = 'https://api.stocktwits.com/api/2/streams/symbol/' + @stock.symbol + '.json'
+		uri = URI(url)
+		response = Net::HTTP.get(uri)
+		jsonInfo = JSON.parse(response)
+		@tweets = Array.new
+		for message in jsonInfo["messages"]
+			@tweets.push(message["body"])
+		end
+		puts @tweets
 	end
 
 	def new
@@ -27,13 +39,17 @@ class StocksController < ApplicationController
 	end
 
 	def create
+		yahoo_client = YahooFinance::Client.new
+		data = yahoo_client.quotes([stock_params["symbol"]], [:name])
+		name = data[0].name
 		@stock = current_user.stocks.build(stock_params)
+		@stock.name = name
 		@stock.industry_id = params[:industry_id]
-
-		if @stock.save
+		if name != "N/A" && @stock.save
 			redirect_to root_path
 		else
-			render 'new'
+			puts "invalid"
+			redirect_to root_path
 		end
 	end
 
@@ -63,18 +79,4 @@ class StocksController < ApplicationController
 		def find_stock
 			@stock = Stock.find(params[:id])
 		end
-
-		# def retrieve_stockTwists_comments
-		# 	require 'cgi'
-		# 	require 'net/http'
-		# 	require 'json'
-		# 	require 'uri'
-		# 	url = request.original_url
-		# 	params = URI.parse(url)
-		# 	url = 'https://api.stocktwits.com/api/2/streams/symbol/fb.json'
-		# 	uri = URI(url)
-		# 	response = Net::HTTP.get(uri)
-		# 	@jsonInfo = JSON.parse(response)
-		# 	tweets = @jsonInfo["messages"]
-		# end
 end
