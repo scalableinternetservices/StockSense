@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
-@import url(http://fonts.googleapis.com/css?family=Lora|Ubuntu:300,400,500); 
+@import url(http://fonts.googleapis.com/css?family=Lora|Ubuntu:300,400,500);
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
@@ -80,7 +80,7 @@ p.alert, p.notice {
 
 	.navbar-nav > .open > a, .navbar-nav > .open > a:hover, .navbar-nav > .open > a:focus {
 		background-color: darken(#f1c40f, 5%);
-		color: #fff;	
+		color: #fff;
 	}
 
 }
@@ -90,7 +90,12 @@ p.alert, p.notice {
 	color: #fff;
 }
 
-
+.dashboard {
+	height: 200px;
+}
+.stks {
+	height: 100%;
+}
 /* Button/link styles */
 
 .btn-custom {
@@ -120,7 +125,7 @@ p.alert, p.notice {
 		background-color: #333;
 		color: #fff;
 		transition: 0.5s;
-	}	
+	}
 }
 
 .links {
@@ -137,23 +142,26 @@ p.alert, p.notice {
 	.btn-custom {
 		padding: 3px 10px;
 		font-weight: 300;
-		margin-top: 40px;	
+		margin-top: 40px;
 	}
 
 }
 
 /* stock styles */
 
+
 .stock {
-	height: 350px;
-	width: 250px;
-	margin-bottom: 40px;
+	height: 100%;
+	width: 100%;
+	margin-bottom: 10px;
 	@include background-tile;
 }
 
+
 .stock-show {
-	height: 475px;
-	width: 325px;
+	height: 100%;
+	width: 100%;
+
 	@include background-tile;
 }
 
@@ -176,13 +184,13 @@ p.alert, p.notice {
 		font-style: italic;
 	}
 
-	.stock-author {
+	.info-text {
 		font-size: 1.5em;
 		margin-top: 10px;
 		margin-bottom: 10px;
 		span {
 			font-size: 0.80em;
-		}	
+		}
 	}
 
 	.stock-desc {

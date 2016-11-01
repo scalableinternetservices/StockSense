@@ -5,16 +5,16 @@
 	<h1>There are no stocks currently in this sector</h1>
 
 <% else %>
-	
-	<div class="row">
-		
+
+	<div class="row dashboard" >
+
 		<% @stocks.each do |stock| %>
-			<div class="col-md-3">
-				<a href="/stocks/<%= stock.id %>">
-					<%= image_tag stock.stock_img.url(:stock_index), class: "stock" %>
-				</a>
+			<div class="col-md-3 stks">
+					<a href="/stocks/<%= stock.id %>">
+						<%= image_tag stock.stock_img.url(:stock_index), class: "stock" %>
+					</a>
 			</div>
-		<% end %>		
+		<% end %>
 	</div>
 
 <% end %>

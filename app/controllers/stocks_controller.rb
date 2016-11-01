@@ -2,6 +2,7 @@ class StocksController < ApplicationController
 	before_action :find_stock, only: [:show, :edit, :update, :destroy]
 	before_action :authenticate_user!, only: [:new, :edit]
 	# before_action :retrieve_stockTwists_comments, only: [:show]
+	before_action :retrieve_stock_info, only: [:show]
 
 	def index
 		if params[:industry].blank?
@@ -10,7 +11,7 @@ class StocksController < ApplicationController
 			@industry_id = Industry.find_by(name: params[:industry]).id
 			@stocks = Stock.where(:industry_id => @industry_id).order("created_at DESC")
 		end
-		
+
 	end
 
 	def show
