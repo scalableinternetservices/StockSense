@@ -29,7 +29,7 @@ gem 'devise', '~> 4.2'
 gem 'paperclip', '~> 5.1'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+gem 'yahoo-finance'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -48,4 +48,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-

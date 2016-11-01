@@ -2,6 +2,7 @@ class StocksController < ApplicationController
 	before_action :find_stock, only: [:show, :edit, :update, :destroy]
 	before_action :authenticate_user!, only: [:new, :edit]
 	# before_action :retrieve_stockTwists_comments, only: [:show]
+	before_action :retrieve_stock_info, only: [:show]
 
 	def index
 		if params[:industry].blank?
@@ -10,7 +11,7 @@ class StocksController < ApplicationController
 			@industry_id = Industry.find_by(name: params[:industry]).id
 			@stocks = Stock.where(:industry_id => @industry_id).order("created_at DESC")
 		end
-		
+
 	end
 
 	def show
@@ -64,17 +65,22 @@ class StocksController < ApplicationController
 			@stock = Stock.find(params[:id])
 		end
 
-		# def retrieve_stockTwists_comments
-		# 	require 'cgi'
-		# 	require 'net/http'
-		# 	require 'json'
-		# 	require 'uri'
-		# 	url = request.original_url
-		# 	params = URI.parse(url)
-		# 	url = 'https://api.stocktwits.com/api/2/streams/symbol/fb.json'
-		# 	uri = URI(url)
-		# 	response = Net::HTTP.get(uri)
-		# 	@jsonInfo = JSON.parse(response)
-		# 	tweets = @jsonInfo["messages"]
-		# end
+		def retrieve_stockTwists_comments
+			require 'cgi'
+			require 'net/http'
+			require 'json'
+			require 'uri'
+			url = request.original_url
+			params = URI.parse(url)
+			url = 'https://api.stocktwits.com/api/2/streams/symbol/fb.json'
+			uri = URI(url)
+			response = Net::HTTP.get(uri)
+			@jsonInfo = JSON.parse(response)
+			tweets = @jsonInfo["messages"]
+		end
+		def retrieve_stock_info
+			yahoo_client = YahooFinance::Client.new
+			@data = yahoo_client.quotes([@stock.symbol], [:ask, :bid, :low, :high, :low_52_weeks, :high_52_weeks, :last_trade_date,:last_trade_price, :notes, :open, :close, :market_capitalization,  :market_capitalization, :volume, :one_year_target_price, :average_daily_volume], { raw: false } )
+			# @stockInfo = "#{@stock.symbol} value is:  #{data[0].ask}"
+		end
 end
