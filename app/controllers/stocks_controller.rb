@@ -1,4 +1,5 @@
 class StocksController < ApplicationController
+
 	before_action :find_stock, only: [:show, :edit, :update, :destroy]
 	before_action :authenticate_user!, only: [:new, :edit]
 	# before_action :retrieve_stockTwists_comments, only: [:show]
@@ -111,6 +112,38 @@ class StocksController < ApplicationController
 			uri=URI.join("https://www.google.com","/trends/fetchComponent?hl=en-US&q=#{@stock.name}&geo=US&cid=RISING_QUERIES_0_0")
 			response = Net::HTTP.get(uri)
 			@jsonInfo = response
+			# render @jsonInfo
+	    # @page_content = open(@url)
+	    # return parseContent(page_content)
+			# require 'pp'
+			#
+			# gm = GTrendManager.new()
+			# # search word is AMAZON, searched results are created from 2012/10 to 2012/11
+			# gresult_1 = gm.request(GRequest.new("AMAZON", 2012, 10))
+			# # display search result
+			# gm.printResult(gresult_1)
+			#
+			# # output search result as csv file
+			# gm.outputAsCsv(gresult_1, "result_amazon.csv")
+			#
+			# # search words are AMAZON and Kindle, searched results are created from 2012/10 to 2013/1
+			# gresult_2 = gm.request(GRequest.new("AMAZON+Kindle", 2012, 10, 3))
+			#
+			# # output search result as csv file
+			# gm.outputAsCsv(gresult_2, "result_amazon_and_kindle.csv")
+			#
+			# # convert search result to array(hash) and print it : Result is [ {"date"=>"2012-10-1", "number"=>"53"}, ... ]
+			# pp gm.getResultAsArray(gresult_2)
+			# require 'cgi'
+			# require 'net/http'
+			# require 'json'
+			# require 'uri'
+			# # https://www.google.com/fetchComponent?hl=en-US&q=Apple&geo=US&cid=RISING_QUERIES_0_0
+			# # https://www.google.com/trends/fetchComponent?hl=en-US&q=jquery&geo=US&cid=RISING_QUERIES_0_0
+			# uri=URI.join("https://www.google.com","/trends/fetchComponent?hl=en-US&q=#{@stock.name}&geo=US&cid=RISING_QUERIES_0_0")
+			# response = Net::HTTP.get(uri)
+			# @jsonInfo = response
+			# render @jsonInfo
 			# tweets = @jsonInfo["messages"]
 		end
 

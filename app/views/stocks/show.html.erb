@@ -26,13 +26,15 @@
 		<h2 class="avg-rating">StockSense Average Rating</h2>
 		<div class="average-review-rating" data-score=<%= @average_review %>></div>
 		<span class="number-of-reviews">Based on <%= @stock.reviews.count %> reviews</span>
-
+		<p><%= @stock.description %></p>
 	</div>
 	</div>
 </div>
-
+<!-- <p> <%= @ur %> -->
+<!--
 <% render html: "#{@jsonInfo}".html_safe %>
-<!-- <iframe> <%= @jsonInfo %></iframe> -->
+<iframe id="foo" /> -->
+
 
 <!-- StockTwists widgets -->
 <div class="row">
@@ -45,7 +47,8 @@
 	</div>
 
 <p>
-	<%= @stockInfo%>
+	<%= @page_content%>
+	<%= @url%>
 </p>
 
 
@@ -93,4 +96,14 @@
 			return $(this).attr('data-score')
 		}
 	});
+</script>
+
+<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/760_RC08/embed_loader.js"></script>
+<script type="text/javascript">
+var stock= '<%=@stock.name%>';
+	trends.embed.renderExploreWidget(
+		"TIMESERIES",
+		{"comparisonItem":[{"keyword":stock,"geo":"","time":"today 5-y"}],
+		"category":0,"property":""},
+		{"exploreQuery":"q=amazon"});
 </script>
