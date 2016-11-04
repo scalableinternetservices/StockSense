@@ -70,7 +70,12 @@
 	<% end %>
 </div>
 
-
+<%
+  @file_path_dir = (asset_path "star-half.png").sub(/\/[^\/]+\.png/, "")
+  @file_path_star_half = (asset_path "star-half.png").match(/\/([^\/]+\.png)/)
+  @file_path_star_off = (asset_path "star-off.png").match(/\/([^\/]+\.png)/)
+  @file_path_star_on = (asset_path "star-on.png").match(/\/([^\/]+\.png)/)
+%>
 
 
 <script>
@@ -79,14 +84,20 @@
 		score: function() {
 			return $(this).attr('data-score');
 		},
-		path: '/assets/'
+		path: '<%= @file_path_dir  %>',
+		starHalf: '<%= @file_path_star_half  %>',
+		starOn: '<%= @file_path_star_on  %>',
+		starOff: '<%= @file_path_star_off  %>'
 	});
 </script>
 
 <script>
 	$('.average-review-rating').raty({
 		readOnly: true,
-		path: '/assets/',
+		path: '<%= @file_path_dir  %>',
+		starHalf: '<%= @file_path_star_half  %>',
+		starOn: '<%= @file_path_star_on  %>',
+		starOff: '<%= @file_path_star_off  %>',
 		score: function() {
 			return $(this).attr('data-score')
 		}
