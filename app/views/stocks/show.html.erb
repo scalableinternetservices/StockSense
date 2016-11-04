@@ -26,14 +26,16 @@
 		<h2 class="avg-rating">StockSense Average Rating</h2>
 		<div class="average-review-rating" data-score=<%= @average_review %>></div>
 		<span class="number-of-reviews">Based on <%= @stock.reviews.count %> reviews</span>
-		<h4 class="stock-description"><%= @data[0].open %></h2>
-	</div>
 
+	</div>
 	</div>
 </div>
 
+<% render html: "#{@jsonInfo}".html_safe %>
+<!-- <iframe> <%= @jsonInfo %></iframe> -->
+
 <!-- StockTwists widgets -->
-<div>
+<div class="row">
 	<div id="stocktwits-widget-news"></div><a href='http://stocktwits.com' style='font-size: 0px;'>StockTwits</a>
 	<script type="text/javascript" src="http://stocktwits.com/addon/widget/2/widget-loader.min.js"></script>
 	<script type="text/javascript">

@@ -3,6 +3,7 @@ class StocksController < ApplicationController
 	before_action :authenticate_user!, only: [:new, :edit]
 	# before_action :retrieve_stockTwists_comments, only: [:show]
 	before_action :retrieve_stock_info, only: [:show]
+	before_action :retrieve_google_trend, only: [:show]
 
 	def index
 		if params[:industry].blank?
@@ -83,4 +84,16 @@ class StocksController < ApplicationController
 			@data = yahoo_client.quotes([@stock.symbol], [:ask, :bid, :low, :high, :low_52_weeks, :high_52_weeks, :last_trade_date,:last_trade_price, :notes, :open, :close, :market_capitalization,  :market_capitalization, :volume, :one_year_target_price, :average_daily_volume], { raw: false } )
 			# @stockInfo = "#{@stock.symbol} value is:  #{data[0].ask}"
 		end
+		# def retrieve_google_trend
+		# 	require 'cgi'
+		# 	require 'net/http'
+		# 	require 'json'
+		# 	require 'uri'
+		# 	# https://www.google.com/fetchComponent?hl=en-US&q=Apple&geo=US&cid=RISING_QUERIES_0_0
+		# 	# https://www.google.com/trends/fetchComponent?hl=en-US&q=jquery&geo=US&cid=RISING_QUERIES_0_0
+		# 	uri=URI.join("https://www.google.com","/trends/fetchComponent?hl=en-US&q=#{@stock.name}&geo=US&cid=RISING_QUERIES_0_0")
+		# 	response = Net::HTTP.get(uri)
+		# 	@jsonInfo = response
+		# 	# tweets = @jsonInfo["messages"]
+		# end
 end
