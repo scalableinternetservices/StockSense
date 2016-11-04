@@ -49,8 +49,8 @@ class StocksController < ApplicationController
 		if name != "N/A" && @stock.save
 			redirect_to root_path
 		else
-			puts "invalid"
-			redirect_to root_path
+			@error_info = "Invalid Symbol! Please look up a correct symbol on http://www.nasdaq.com/screening/company-list.aspx"
+			redirect_to new_stock_path
 		end
 	end
 
@@ -79,5 +79,25 @@ class StocksController < ApplicationController
 
 		def find_stock
 			@stock = Stock.find(params[:id])
+		end
+
+
+		def retrieve_stockTwists_comments
+			require 'cgi'
+			require 'net/http'
+			require 'json'
+			require 'uri'
+			url = request.original_url
+			params = URI.parse(url)
+			url = 'https://api.stocktwits.com/api/2/streams/symbol/fb.json'
+			uri = URI(url)
+			response = Net::HTTP.get(uri)
+			@jsonInfo = JSON.parse(response)
+			tweets = @jsonInfo["messages"]
+		end
+		def retrieve_stock_info
+			yahoo_client = YahooFinance::Client.new
+			@data = yahoo_client.quotes([@stock.symbol], [:ask, :bid, :low, :high, :low_52_weeks, :high_52_weeks, :last_trade_date,:last_trade_price, :notes, :open, :close, :market_capitalization,  :market_capitalization, :volume, :one_year_target_price, :average_daily_volume], { raw: false } )
+			# @stockInfo = "#{@stock.symbol} value is:  #{data[0].ask}"
 		end
 end
