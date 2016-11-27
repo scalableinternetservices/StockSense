@@ -9,7 +9,7 @@
 
   <!-- Server side setup -->
   <servers>
-    <server host="http://35.161.136.26" port="80" type="tcp"></server>
+    <server host="35.161.136.26" port="80" type="tcp"></server>
   </servers>
 
 
@@ -70,8 +70,8 @@
           method='POST'
           contents='event%5Bindustry_id%5D=1
           &amp;event%5Bstock[stock_img]%5D=""
-          &amp;event%5Bstock[name]%5D=Test+Stock
-          &amp;event%5Bstock[symbol]%5D=AAAA
+          &amp;event%5Bstock[name]%5D=Test1
+          &amp;event%5Bstock[symbol]%5D=GOOG
           &amp;event%5Bstock[description]%5D=Test+Stock+Description
           &amp;commit=Create+Stock'>
         </http>
