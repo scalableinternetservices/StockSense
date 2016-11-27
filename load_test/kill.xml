@@ -11,7 +11,7 @@
 
   <!-- Server side setup -->
   <servers>
-    <server host="35.164.210.141" port="80" type="tcp"></server>
+    <server host="35.161.136.26" port="80" type="tcp"></server>
   </servers>
 
   <load>
