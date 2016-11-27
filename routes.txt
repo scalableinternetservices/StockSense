@@ -1,0 +1,33 @@
+                  Prefix Verb   URI Pattern                                  Controller#Action
+        new_user_session GET    /users/sign_in(.:format)                     devise/sessions#new
+            user_session POST   /users/sign_in(.:format)                     devise/sessions#create
+    destroy_user_session DELETE /users/sign_out(.:format)                    devise/sessions#destroy
+           user_password POST   /users/password(.:format)                    devise/passwords#create
+       new_user_password GET    /users/password/new(.:format)                devise/passwords#new
+      edit_user_password GET    /users/password/edit(.:format)               devise/passwords#edit
+                         PATCH  /users/password(.:format)                    devise/passwords#update
+                         PUT    /users/password(.:format)                    devise/passwords#update
+cancel_user_registration GET    /users/cancel(.:format)                      devise/registrations#cancel
+       user_registration POST   /users(.:format)                             devise/registrations#create
+   new_user_registration GET    /users/sign_up(.:format)                     devise/registrations#new
+  edit_user_registration GET    /users/edit(.:format)                        devise/registrations#edit
+                         PATCH  /users(.:format)                             devise/registrations#update
+                         PUT    /users(.:format)                             devise/registrations#update
+                         DELETE /users(.:format)                             devise/registrations#destroy
+           stock_reviews GET    /stocks/:stock_id/reviews(.:format)          reviews#index
+                         POST   /stocks/:stock_id/reviews(.:format)          reviews#create
+        new_stock_review GET    /stocks/:stock_id/reviews/new(.:format)      reviews#new
+       edit_stock_review GET    /stocks/:stock_id/reviews/:id/edit(.:format) reviews#edit
+            stock_review GET    /stocks/:stock_id/reviews/:id(.:format)      reviews#show
+                         PATCH  /stocks/:stock_id/reviews/:id(.:format)      reviews#update
+                         PUT    /stocks/:stock_id/reviews/:id(.:format)      reviews#update
+                         DELETE /stocks/:stock_id/reviews/:id(.:format)      reviews#destroy
+                  stocks GET    /stocks(.:format)                            stocks#index
+                         POST   /stocks(.:format)                            stocks#create
+               new_stock GET    /stocks/new(.:format)                        stocks#new
+              edit_stock GET    /stocks/:id/edit(.:format)                   stocks#edit
+                   stock GET    /stocks/:id(.:format)                        stocks#show
+                         PATCH  /stocks/:id(.:format)                        stocks#update
+                         PUT    /stocks/:id(.:format)                        stocks#update
+                         DELETE /stocks/:id(.:format)                        stocks#destroy
+                    root GET    /                                            stocks#index
