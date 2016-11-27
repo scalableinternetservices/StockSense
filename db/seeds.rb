@@ -11,12 +11,12 @@ require 'faker'
 allow_randomness = false
 allow_image_upload = false
 
-total_num_of_users = 10
+total_num_of_users = 500
 total_num_of_stocks = 0        # total_num_of_stocks is calculated later
 total_num_of_reviews = 0   # total_num_of_reviews is calculated later
 
 avg_num_of_stocks_per_user = 2
-avg_num_of_reviews_per_user = 10
+avg_num_of_reviews_per_user = 4
 
 
 
