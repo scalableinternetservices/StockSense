@@ -51,10 +51,6 @@
         <var name="random_user_name" />
       </setdynvars>
 
-      <request>
-        <http url='/users/sign_up' version='1.1' method='GET'></http>
-      </request>
-
       <request subst="true">
         <http
           url='/users/sign_up'
@@ -69,11 +65,6 @@
  		
  		 <thinktime value="2" random="true"></thinktime>
 
-
- 	  	<request>
-        <http url='/stocks/new' version='1.1' method='GET'></http>
-      </request>
-
       <request subst="true">
         <http
           url='/stocks/new'
@@ -81,7 +72,7 @@
           method='POST'
           contents='event%5Bindustry_id%5D=1
           &amp;event%5Bstock[stock_img]%5D=""
-          &amp;event%5Bstock[name]%5D=Test1
+          &amp;event%5Bstock[name]%5D=GOOG
           &amp;event%5Bstock[symbol]%5D=GOOG
           &amp;event%5Bstock[description]%5D=Test+Stock+Description
           &amp;commit=Create+Stock'>

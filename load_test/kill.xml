@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/home/ec2-user/opt/tsung-1.5.0/share/tsung/tsung-1.0.dtd">
+<!-- <tsung loglevel="notice" version="1.0"> -->
+<!-- dumptraffic="protocol" will dump the http traffic to a file tsung.dump -->
+<tsung loglevel="notice" dumptraffic="protocol" version="1.0">
+
+  <!-- Client side setup -->
+  <clients>
+    <client host="localhost" use_controller_vm="true" maxusers='15000'/>
+  </clients>
+
+  <!-- Server side setup -->
+  <servers>
+    <server host="35.164.210.141" port="80" type="tcp"></server>
+  </servers>
+
+  <load>
+    <arrivalphase phase="1" duration="30" unit="second">
+      <users arrivalrate="1" unit="second"></users>
+    </arrivalphase>
+    <!-- <arrivalphase phase="2" duration="30" unit="second">
+      <users arrivalrate="2" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="3" duration="30" unit="second">
+      <users arrivalrate="4" unit="second"></users>
+    </arrivalphase> -->
+  </load>
+
+  <options>
+    <!-- Set connection timeout to 2 seconds -->
+    <option name="global_ack_timeout" value="2000"></option>
+
+    <option type="ts_http" name="user_agent">
+      <user_agent probability="100">Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
+    </option>
+  </options>
+
+<sessions>
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                    login-logout                   -->
+    <!-- ================================================= -->
+    <!-- 1. set up current user randomly -->
+    <!-- 2. login -->
+    <!-- 3. log out -->
+    <!-- ================================================= -->
+
+    <session name="login-logout" weight="1" type="ts_http">
+
+      <!-- 1. set up current user randomly -->
+      <!-- [sample value] - current_user_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="current_user_id" />
+      </setdynvars>
+
+      <!-- repeat step [2,3] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 2. login -->
+      <!-- go to users/sign_in page -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <request>
+        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <http url="/users/sign_in" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <if var="authenticity_token" neq="">
+      <!-- log in using username and password -->
+      <!-- [sample value] - login: user_1 -->
+      <!-- [sample value] - password: 88888888 -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <!-- [sample value] - remember_me: 0 -->
+      <request subst="true">
+        <http url="/users/sign_in" method="POST" version="1.1" 
+          content_type="application/x-www-form-urlencoded"
+          contents="utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;user%5Bemail%5D=user_%%_current_user_id%%%40gmail.com&amp;user%5Bpassword%5D=88888888&amp;user%5Bremember_me%5D=0&amp;commit=Log+in"/>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- 3. log out -->
+      <request>
+        <http url='/users/sign_out' version='1.1' method='DELETE'></http>
+      </request>
+
+      </if>
+      </for>
+
+    </session>
+
+
+     <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                   visit-homepage                  -->
+    <!-- ================================================= -->
+    <!-- 1. visit homepage -->
+    <!-- ================================================= -->
+
+    <session name="visit-homepage" weight="10" type="ts_http">
+      <!-- repeat step [1] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 1. visit homepage -->
+      <request>
+        <http url='/' version='1.1' method='GET'></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </for>
+
+    </session>
+
+
+
+    <!-- ================================================= -->
+      <!--                      SESSION                      -->
+      <!--                    visit-stocks                   -->
+      <!-- ================================================= -->
+      <!-- 1. random generate a stock id to visit -->
+      <!-- 2. visit a random stock -->
+      <!-- ================================================= -->
+      <session name="visit-stocks" weight="10" type="ts_http">
+
+        <!-- repeat step [1,2] 10 times -->
+        <for from="1" to="10" incr="1" var="counter">
+
+        <!-- 1. random generate a stock id to visit -->
+        <!-- [sample value] - random_stock_id: 1 -->
+        <setdynvars sourcetype="random_number" start="0" end="99">
+          <var name="random_stock_id" />
+        </setdynvars>
+
+        <!-- 2. visit a random stock -->
+        <!-- [sample value] - url: /recipes/1 -->
+        <request subst="true">
+          <http url="/stocks/%%_random_stock_id%%" version="1.1" method="GET"></http>
+        </request>
+
+        <thinktime value="2" random="true"></thinktime>
+
+        </for>
+
+      </session>
+  
+
+
+      
+        <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                 Search By Sector                  -->
+    <!-- ================================================= -->
+
+      <session name="search-by-sector" weight="5" type="ts_http">
+        <request>
+            <http url='/stocks?industry=Energy' version='1.1' method='GET'></http>
+        </request>
+        <request>
+            <http url='/stocks?industry=Financials' version='1.1' method='GET'></http>
+        </request>
+        <request>
+            <http url='/stocks?industry=Industrials' version='1.1' method='GET'></http>
+        </request>
+        <request>
+            <http url='/stocks?industry=Materials' version='1.1' method='GET'></http>
+        </request>
+        <request>
+            <http url='/stocks?industry=Utilities' version='1.1' method='GET'></http>
+        </request>        
+    </session>
+    
+  
+
+        <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                 create-delete-recipe              -->
+    <!-- ================================================= -->
+    <!-- 1. set up current user randomly -->
+    <!-- 2. login -->
+    <!-- 3. go to recipes/new page -->
+    <!-- 4. create a recipe -->
+    <!-- 5. redirected to recipe page just created -->
+    <!-- 6. delete the recipe just created -->
+    <!-- 7. log out -->
+    <!-- ================================================= -->
+
+
+
+
+    
+  
+</sessions>
+</tsung>
