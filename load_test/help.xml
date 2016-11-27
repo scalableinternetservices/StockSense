@@ -51,6 +51,10 @@
         <var name="random_user_name" />
       </setdynvars>
 
+      <request>
+        <http url='/users/sign_up' version='1.1' method='GET'></http>
+      </request>
+
       <request subst="true">
         <http
           url='/users/sign_up'
@@ -64,7 +68,12 @@
       </request>
  		
  		 <thinktime value="2" random="true"></thinktime>
- 		 
+
+
+ 	  	<request>
+        <http url='/stocks/new' version='1.1' method='GET'></http>
+      </request>
+
       <request subst="true">
         <http
           url='/stocks/new'
