@@ -22,18 +22,18 @@ class StocksController < ApplicationController
 		else
 			@average_review = @stock.reviews.average(:rating).round(2)
 		end
-		require 'cgi'
-		require 'net/http'
-		require 'json'
-		url = 'https://api.stocktwits.com/api/2/streams/symbol/' + @stock.symbol + '.json'
-		uri = URI(url)
-		response = Net::HTTP.get(uri)
-		jsonInfo = JSON.parse(response)
-		@tweets = Array.new
-		for message in jsonInfo["messages"]
-			@tweets.push(message["body"])
-		end
-		puts @tweets
+		# require 'cgi'
+		# require 'net/http'
+		# require 'json'
+		# url = 'https://api.stocktwits.com/api/2/streams/symbol/' + @stock.symbol + '.json'
+		# uri = URI(url)
+		# response = Net::HTTP.get(uri)
+		# jsonInfo = JSON.parse(response)
+		# @tweets = Array.new
+		# for message in jsonInfo["messages"]
+		# 	@tweets.push(message["body"])
+		# end
+		# puts @tweets
 	end
 
 	def new
