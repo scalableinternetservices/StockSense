@@ -27,9 +27,9 @@
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sectors<span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">
-					<% Industry.all.each do |industry| %>
-						<li class="<%= 'active' if params[:industry] == industry.name %>">
-							<%= link_to industry.name, stocks_path(industry: industry.name), class: "link" %>
+					<% @industry_names.each do |industry_name| %>
+						<li class="<%= 'active' if params[:industry] == industry_name %>">
+							<%= link_to industry_name, stocks_path(industry: industry_name), class: "link" %>
 						</li>
 					<% end %>
 				</ul>

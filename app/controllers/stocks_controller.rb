@@ -8,10 +8,10 @@ class StocksController < ApplicationController
 
 	def index
 		if params[:industry].blank?
-			@stocks = Stock.all.order("created_at DESC")
+			@stocks = Stock.paginate(page:params[:page]).order("created_at DESC")
 		else
 			@industry_id = Industry.find_by(name: params[:industry]).id
-			@stocks = Stock.where(:industry_id => @industry_id).order("created_at DESC")
+			@stocks = Stock.paginate(page:params[:page]).where(:industry_id => @industry_id).order("created_at DESC")
 		end
 
 	end
@@ -22,18 +22,6 @@ class StocksController < ApplicationController
 		else
 			@average_review = @stock.reviews.average(:rating).round(2)
 		end
-		# require 'cgi'
-		# require 'net/http'
-		# require 'json'
-		# url = 'https://api.stocktwits.com/api/2/streams/symbol/' + @stock.symbol + '.json'
-		# uri = URI(url)
-		# response = Net::HTTP.get(uri)
-		# jsonInfo = JSON.parse(response)
-		# @tweets = Array.new
-		# for message in jsonInfo["messages"]
-		# 	@tweets.push(message["body"])
-		# end
-		# puts @tweets
 	end
 
 	def new
@@ -108,43 +96,9 @@ class StocksController < ApplicationController
 			require 'net/http'
 			require 'json'
 			require 'uri'
-			# https://www.google.com/fetchComponent?hl=en-US&q=Apple&geo=US&cid=RISING_QUERIES_0_0
-			# https://www.google.com/trends/fetchComponent?hl=en-US&q=jquery&geo=US&cid=RISING_QUERIES_0_0
+
 			uri=URI.join("https://www.google.com","/trends/fetchComponent?hl=en-US&q=#{@stock.name}&geo=US&cid=RISING_QUERIES_0_0")
 			response = Net::HTTP.get(uri)
 			@jsonInfo = response
-			# render @jsonInfo
-	    # @page_content = open(@url)
-	    # return parseContent(page_content)
-			# require 'pp'
-			#
-			# gm = GTrendManager.new()
-			# # search word is AMAZON, searched results are created from 2012/10 to 2012/11
-			# gresult_1 = gm.request(GRequest.new("AMAZON", 2012, 10))
-			# # display search result
-			# gm.printResult(gresult_1)
-			#
-			# # output search result as csv file
-			# gm.outputAsCsv(gresult_1, "result_amazon.csv")
-			#
-			# # search words are AMAZON and Kindle, searched results are created from 2012/10 to 2013/1
-			# gresult_2 = gm.request(GRequest.new("AMAZON+Kindle", 2012, 10, 3))
-			#
-			# # output search result as csv file
-			# gm.outputAsCsv(gresult_2, "result_amazon_and_kindle.csv")
-			#
-			# # convert search result to array(hash) and print it : Result is [ {"date"=>"2012-10-1", "number"=>"53"}, ... ]
-			# pp gm.getResultAsArray(gresult_2)
-			# require 'cgi'
-			# require 'net/http'
-			# require 'json'
-			# require 'uri'
-			# # https://www.google.com/fetchComponent?hl=en-US&q=Apple&geo=US&cid=RISING_QUERIES_0_0
-			# # https://www.google.com/trends/fetchComponent?hl=en-US&q=jquery&geo=US&cid=RISING_QUERIES_0_0
-			# uri=URI.join("https://www.google.com","/trends/fetchComponent?hl=en-US&q=#{@stock.name}&geo=US&cid=RISING_QUERIES_0_0")
-			# response = Net::HTTP.get(uri)
-			# @jsonInfo = response
-			# render @jsonInfo
-			# tweets = @jsonInfo["messages"]
 		end
 end
