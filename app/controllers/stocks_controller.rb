@@ -8,10 +8,10 @@ class StocksController < ApplicationController
 
 	def index
 		if params[:industry].blank?
-			@stocks = Stock.paginate(page:params[:page]).order("created_at DESC")
+			@stocks = Stock.all.order("created_at DESC")
 		else
 			@industry_id = Industry.find_by(name: params[:industry]).id
-			@stocks = Stock.paginate(page:params[:page]).where(:industry_id => @industry_id).order("created_at DESC")
+			@stocks = Stock.where(:industry_id => @industry_id).order("created_at DESC")
 		end
 
 	end
