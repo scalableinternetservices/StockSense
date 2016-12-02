@@ -1,23 +1,23 @@
-<h1 class="current-industry"><%= params[:industry] %></h1>
+<% cache(cache_key_for_stock_list) do %>
+	<h1 class="current-industry"><%= params[:industry] %></h1>
 
-<% if @stocks.count == 0 %>
+	<% if @stocks.count == 0 %>
 
-	<h1>There are no stocks currently in this sector</h1>
+		<h1>There are no stocks currently in this sector</h1>
 
-<% else %>
-
-	<div class="row dashboard" >
-
-		<% @stocks.each do |stock| %>
-			<div class="col-md-3 stks">
-					<a href="/stocks/<%= stock.id %>">
-						<%= image_tag stock.stock_img.url(:stock_index), class: "stock" %>
-					</a>
-			</div>
-		<% end %>
-	</div>
-
-	<%= will_paginate @stocks %>
-	
+	<% else %>
+		<div class="row dashboard" >
+			<% @stocks.each do |stock| %>
+				<% cache(cache_key_for_stock(stock)) do %>
+					<div class="col-md-3 stks">
+							<a href="/stocks/<%= stock.id %>">
+								<%= image_tag stock.stock_img.url(:stock_index), class: "stock" %>
+							</a>
+					</div>
+				<% end %>
+			<% end %>
+		</div>
+	<% end %>
+		<%= will_paginate @stocks %>
 <% end %>
 
